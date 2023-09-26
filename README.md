@@ -83,8 +83,3 @@ Inside the project, you will find the following features:
 ## License
 
 This project is licensed under the MIT License - see the [LICENSE](LICENSE) file for details.
-
-```
-
-I've added the project details you provided and formatted the document accordingly.
-```
