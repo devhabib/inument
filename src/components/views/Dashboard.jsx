@@ -11,9 +11,10 @@ export const Dashboard = () => {
     const handleClose = () => setShow(false);
     const handleShow = () => setShow(true);
 
-    const { control, handleSubmit } = useForm({
+    const { control, handleSubmit, formState: { errors } } = useForm({
         defaultValues: {
-            fullName: ''
+            fullName: '',
+            email: ''
         }
     });
 
@@ -69,9 +70,16 @@ export const Dashboard = () => {
                                 control={control}
                                 rules={{ required: true }}
                                 render={({ field }) => (
-                                    <Form.Control type="text" {...field} placeholder="Full Name" />
+                                    <Form.Control
+                                        type="text"
+                                        {...field}
+                                        isInvalid={errors.fullName}
+                                        placeholder="Full Name"
+                                    />
                                 )}
                             />
+                            <Form.Control.Feedback type="invalid">Full name is required!</Form.Control.Feedback>
+
                         </InputGroup>
                     </div>
                     <div className="form__single">
@@ -80,12 +88,23 @@ export const Dashboard = () => {
                             <InputGroup.Text id="email">
                                 <i className="fi fi-rr-envelope"></i>
                             </InputGroup.Text>
-                            <Form.Control
-                                placeholder="email@mailbox.com"
-                                aria-label="email"
-                                aria-describedby="email"
-                                type="email"
+                            <Controller
+                                name="email"
+                                control={control}
+                                rules={{ required: true, pattern: /^\w+@[a-zA-Z_]+?\.[a-zA-Z]{2,3}$/ }}
+                                render={({ field }) => (
+
+                                    <Form.Control
+                                        placeholder="email@mailbox.com"
+                                        type="email"
+                                        {...field}
+                                        isInvalid={errors.email}
+                                    />
+                                )}
                             />
+                            <Form.Control.Feedback type="invalid">Please enter a valid email address</Form.Control.Feedback>
+
+
                         </InputGroup>
                     </div>
                     <div className="form__single">
