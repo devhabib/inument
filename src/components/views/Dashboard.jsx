@@ -3,12 +3,23 @@ import { useState } from 'react';
 import Form from 'react-bootstrap/Form';
 import InputGroup from 'react-bootstrap/InputGroup';
 import Modal from 'react-bootstrap/Modal';
+import { Controller, useForm } from "react-hook-form";
 
 export const Dashboard = () => {
     const userData = user;
     const [show, setShow] = useState(false);
     const handleClose = () => setShow(false);
     const handleShow = () => setShow(true);
+
+    const { control, handleSubmit } = useForm({
+        defaultValues: {
+            fullName: ''
+        }
+    });
+
+    const formSubmit = (data) => {
+        console.log(data);
+    }
     return <>
         <section className="dashboard">
             <div className="container-fluid">
@@ -45,7 +56,7 @@ export const Dashboard = () => {
                 <Modal.Title>Add New User</Modal.Title>
             </Modal.Header>
             <Modal.Body>
-                <Form>
+                <Form noValidate onSubmit={handleSubmit(formSubmit)}>
                     <div className="form__single">
                         <Form.Label htmlFor="fullName">Full Name</Form.Label>
 
@@ -53,10 +64,13 @@ export const Dashboard = () => {
                             <InputGroup.Text id="fullName">
                                 <i className="fi fi-rr-user"></i>
                             </InputGroup.Text>
-                            <Form.Control
-                                placeholder="Full Name"
-                                aria-label="Full Name"
-                                aria-describedby="fullName"
+                            <Controller
+                                name="fullName"
+                                control={control}
+                                rules={{ required: true }}
+                                render={({ field }) => (
+                                    <Form.Control type="text" {...field} placeholder="Full Name" />
+                                )}
                             />
                         </InputGroup>
                     </div>
@@ -132,16 +146,17 @@ export const Dashboard = () => {
                             </div>
                         </Form.Group>
                     </div>
+                    <div className="form__footer">
+                        <button className="secondary__btn" onClick={handleClose}>
+                            Close
+                        </button>
+                        <button className="success__btn" type="submit" >
+                            Save Changes
+                        </button>
+                    </div>
                 </Form>
             </Modal.Body>
-            <Modal.Footer>
-                <button className="secondary__btn" onClick={handleClose}>
-                    Close
-                </button>
-                <button className="success__btn" onClick={handleClose}>
-                    Save Changes
-                </button>
-            </Modal.Footer>
+
         </Modal>
     </>
 }
