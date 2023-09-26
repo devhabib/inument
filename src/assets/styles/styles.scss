@@ -1,0 +1,109 @@
+@import "./helpers/variables";
+@import "./helpers/mixins";
+@import "./helpers/reset";
+@import "./helpers/typography";
+
+// Sidebar
+
+aside {
+    position: fixed;
+    z-index: 30;
+    .sidebar {
+        position: relative;
+        z-index: 10;
+        max-width: 20rem;
+        width: 5rem;
+        height: 100vh;
+        background-color: $dark;
+        color: $white;
+        transition: all 0.3s ease;
+        &__open {
+            width: 20rem;
+        }
+        &__logo {
+            padding: 10px 5px;
+            background-color: lighten($color: $dark, $amount: 2);
+            display: flex;
+            align-items: center;
+            position: relative;
+            overflow: hidden;
+
+            button {
+                background-color: darken($color: $white, $amount: 5);
+                font-size: 2rem;
+                font-weight: 700;
+                border: 0;
+                padding: 5px 17px;
+                border-radius: 5px;
+                margin-right: 5px;
+            }
+            span {
+                font-size: 2rem;
+                text-transform: uppercase;
+                font-weight: 700;
+            }
+        }
+        .menu {
+            position: absolute;
+            right: -2.5rem;
+            padding: 0;
+            background-color: transparent;
+            margin: 0;
+            top: 16px;
+            font-size: 2rem;
+            font-weight: 700;
+            border: 0;
+            color: $white;
+        }
+        &__menu {
+            overflow: hidden;
+            overflow-y: auto;
+            padding-left: 5px;
+            &--link {
+                display: flex;
+                align-items: center;
+                color: $white;
+                padding: 10px 5px;
+                margin-bottom: 10px;
+                border-radius: 5px 0 0 5px;
+                overflow: hidden;
+                transition: all 0.3s ease-in;
+                .icon {
+                    display: block;
+                    padding: 0 12px;
+                    margin-right: 8px;
+                    i {
+                        display: flex;
+                    }
+                }
+                &.active,
+                &:hover {
+                    background-color: darken($color: $white, $amount: 5);
+                    color: $dark;
+                }
+                &:hover {
+                    overflow: visible;
+                }
+            }
+        }
+    }
+}
+
+// Header
+
+header {
+    position: fixed;
+    top: 0;
+    left: 0;
+    background-color: $dark;
+    width: 100%;
+    z-index: 8;
+    padding: 18px 0;
+    li {
+        text-align: right;
+        a {
+            color: $white;
+            font-size: 1.6rem;
+        }
+    }
+}
