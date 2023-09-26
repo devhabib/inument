@@ -4,27 +4,36 @@
 @import "./helpers/typography";
 
 // common
-
-.primary__btn {
-    background-color: $dark;
-    border: 1px solid $dark;
+%btn {
     border-radius: 5px;
     position: relative;
-    color: $white;
     transition: 0.3s ease-in-out;
     overflow: hidden;
     z-index: 1;
     padding: 10px 20px;
+}
+%before {
+    position: absolute;
+    content: "";
+}
+%btn_beforeAfter {
+    @extend %before;
+    top: 0;
+    width: 0;
+    height: 100%;
+    z-index: -1;
+    transition: 0.3s ease-in-out;
+}
+.primary__btn {
+    @extend %btn;
+    background-color: $dark;
+    border: 1px solid $dark;
+    color: $white;
+
     &::before {
-        position: absolute;
-        content: "";
+        @extend %btn_beforeAfter;
         left: 0;
-        top: 0;
-        width: 0;
-        height: 100%;
         background-color: $white;
-        z-index: -1;
-        transition: 0.3s ease-in-out;
     }
     &:hover {
         color: $dark;
@@ -34,6 +43,44 @@
     }
 }
 
+.secondary__btn {
+    @extend %btn;
+    background-color: transparent;
+    border: 1px solid $dark;
+    color: $dark;
+    margin-right: 1rem;
+
+    &::before {
+        @extend %btn_beforeAfter;
+        background-color: $dark;
+        right: 0;
+    }
+    &:hover {
+        color: $white;
+
+        &::before {
+            width: 100%;
+        }
+    }
+}
+
+.success__btn {
+    @extend %btn;
+    background-color: $color-success;
+    border: 1px solid $color-success;
+    color: $white;
+    &::before {
+        @extend %btn_beforeAfter;
+        background-color: $white;
+        right: 0;
+    }
+    &:hover {
+        color: $dark;
+        &::before {
+            width: 100%;
+        }
+    }
+}
 // Sidebar
 
 aside {
